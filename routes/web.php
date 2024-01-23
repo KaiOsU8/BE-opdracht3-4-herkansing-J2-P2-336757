@@ -35,6 +35,7 @@ Route::resource('voertuigInstructeur', VoertuigInstructeurController::class);
 Route::resource('voertuigInstructeur.voertuig', VoertuigController::class);
 Route::resource('voertuigInstructeur.instructeur', InstructeurController::class);
 
+
 //  // Voertuig routes
 //  Route::get('/voertuig', [VoertuigController::class, 'view'])->name('voertuig.view');
 //  Route::get('/voertuig/edit', [VoertuigController::class, 'edit'])->name('voertuig.edit');

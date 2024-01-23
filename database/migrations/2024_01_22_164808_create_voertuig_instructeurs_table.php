@@ -14,10 +14,10 @@ return new class extends Migration
         if (!Schema::hasTable('voertuig_instructeurs')) {
             Schema::create('voertuig_instructeurs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('VoertuigId');
-            $table->foreign('VoertuigId')->references('id')->on('voertuigs');
-            $table->unsignedBigInteger('InstructeurId');
-            $table->foreign('InstructeurId')->references('id')->on('instructeurs');
+            $table->unsignedBigInteger('Voertuig_Id');
+            $table->foreign('Voertuig_Id')->references('id')->on('voertuigs');
+            $table->unsignedBigInteger('Instructeur_Id');
+            $table->foreign('Instructeur_Id')->references('id')->on('instructeurs');
             $table->date('DatumToekenning');
             $table->boolean('IsActief')->default(true);
             $table->string('Opmerking')->nullable();

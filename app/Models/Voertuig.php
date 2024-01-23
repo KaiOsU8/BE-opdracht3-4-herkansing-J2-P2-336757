@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-
+use App\Models\VoertuigInstructeur; // Add this import statement
+use App\Models\TypeVoertuig; // Add this import statement
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Voertuig extends Model
 {
@@ -14,5 +17,10 @@ class Voertuig extends Model
     public function voertuigInstructeur(): BelongsTo
     {
         return $this->belongsTo(VoertuigInstructeur::class);
+    }
+
+    public function typeVoertuig(): HasMany
+    {
+        return $this->hasMany(TypeVoertuig::class);
     }
 }

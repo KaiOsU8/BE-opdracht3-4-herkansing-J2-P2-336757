@@ -21,7 +21,7 @@
                     <td class="border-b-2 border-x-2 border-gray-500">{{ $instructeur->Mobiel }}</td>
                     <td class="border-b-2 border-x-2 border-gray-500">{{ $instructeur->DatumInDienst }}</td>
                     <td class="border-b-2 border-x-2 border-gray-500">{{ $instructeur->AantalSterren }}</td>
-                    <td class="border-b-2 border-x-2 border-gray-500"><a href="instructeur"><i class="fa-solid fa-car-on"></i></a></td>
+                    <td class="border-b-2 border-x-2 border-gray-500"><a href="{{ route('instructeur.show', ['instructeur' => $instructeur->id]) }}"><i class="fa-solid fa-car-on"></i></a></td>
                 </tr>
             @endforeach
         </table>

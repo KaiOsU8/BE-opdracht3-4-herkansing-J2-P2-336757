@@ -13,7 +13,7 @@ class InstructeurController extends Controller
     public function index()
     {
         return view('instructeur.index', [
-            'instructeurs' => Instructeur::all(),
+            'instructeurs' => Instructeur::orderBy('AantalSterren', 'desc')->get(),
             'count' => Instructeur::count(),
         ]);
 
@@ -40,7 +40,12 @@ class InstructeurController extends Controller
      */
     public function show(Instructeur $instructeur)
     {
-        //
+        $voertuigen = $instructeur->voertuigen;
+
+        return view('instructeur.show', [
+            'instructeurs' => $instructeur,
+            'voertuigen' => $voertuigen,
+        ]);
     }
 
     /**

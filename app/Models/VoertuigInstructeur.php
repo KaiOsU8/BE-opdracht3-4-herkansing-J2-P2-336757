@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Voertuig; // Add this import statement
+use App\Models\Instructeur; // Add this import statement
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-// use Awobaz\Compoships\Compoships;
+
+
 
 class VoertuigInstructeur extends Model
 {
