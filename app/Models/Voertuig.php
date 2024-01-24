@@ -35,4 +35,9 @@ class Voertuig extends Model
     {
         return $this->belongsTo(TypeVoertuig::class, 'TypeVoertuigId', 'id');
     }
+
+    public function instructeurs()
+    {
+        return $this->belongsToMany(Instructeur::class, 'voertuig_instructeurs', 'VoertuigId', 'InstructeurId');
+    }
 }

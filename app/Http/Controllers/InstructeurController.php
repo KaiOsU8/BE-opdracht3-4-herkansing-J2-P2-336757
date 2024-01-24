@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Instructeur;
 use App\Models\Voertuig; // Import the Voertuig model class
+use App\Models\VoertuigInstructeur; 
 use Illuminate\Http\Request;
 
 class InstructeurController extends Controller
@@ -84,10 +85,13 @@ class InstructeurController extends Controller
         //
     }
 
-    public function addVoertuig(Instructeur $instructeur, Voertuig $voertuig)
+    public function addVoertuig(Request $request, $instructeurId, $voertuigId)
     {
-        $instructeur->voertuigen()->attach($voertuig->id, ['DatumToekenning' => now()]);
-
+        $voertuigInstructeur = new VoertuigInstructeur;
+        $voertuigInstructeur->VoertuigId = $voertuigId;
+        $voertuigInstructeur->InstructeurId = $instructeurId;
+        $voertuigInstructeur->save();
+    
         return redirect()->back();
     }
 }

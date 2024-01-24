@@ -18,7 +18,18 @@ class VoertuigInstructeur extends Model
     const UPDATED_AT = 'DatumGewijzigd';
     const CREATED_AT = 'DatumAangemaakt';
 
-    protected $fillable = ['InstructeurId'];
+    protected $fillable = ['InstructeurId', 'VoertuigId'];
+
+
+    protected $table = 'voertuig_instructeurs';
+
+    public function someMethod($voertuigId, $instructeurId)
+    {
+        $voertuigInstructeur = new VoertuigInstructeur();
+        $voertuigInstructeur->VoertuigId = $voertuigId;
+        $voertuigInstructeur->InstructeurId = $instructeurId;
+        $voertuigInstructeur->save();
+    }
 
     public function voertuig(): BelongsTo
     {

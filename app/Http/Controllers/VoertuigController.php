@@ -63,33 +63,28 @@ class VoertuigController extends Controller
      * @param  \App\Models\Voertuig  $voertuig
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Voertuig $voertuig)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'Kenteken' => 'required|max:255',
-            'Type' => 'required|max:255',
-            'Bouwjaar' => 'required|date',
-            'Brandstof' => 'required|max:255',
-            'TypeVoertuigId' => 'required|exists:type_voertuigs,id',
-            'InstructeurId' => 'required|exists:instructeurs,id',
+        // Validate and process form data
+        $newVoertuigTypeId = $request->input('TypeVoertuigId');
+        $newInstructeurId = $request->input('InstructeurId');
+        $newType = $request->input('Type');
+    
+        // Find the existing Voertuig record
+        $voertuig = Voertuig::find($id);
+    
+        // Update the Voertuig record
+        $voertuig->update([
+            'TypeVoertuigId' => $newVoertuigTypeId,
+            'Type' => $newType,
+            // other fields...
         ]);
     
-        $voertuig->update($validatedData);
+        // Update the associated Instructeur record in the pivot table
+        $voertuig->instructeurs()->sync([$newInstructeurId]);
     
-        // Update the InstructeurId through the voertuigInstructeur relationship
-        if ($voertuig->voertuigInstructeur) {
-            $voertuig->voertuigInstructeur->update(['InstructeurId' => $validatedData['InstructeurId']]);
-        } else {
-            // Handle the case where voertuigInstructeur doesn't exist
-            // For example, you might create a new voertuigInstructeur:
-            $voertuig->voertuigInstructeur()->create([
-                'InstructeurId' => $validatedData['InstructeurId']
-            ]);
-        }
-    
-        return redirect('/');
+        return redirect()->route('instructeur.index');
     }
-
     /**
      * Remove the specified resource from storage.
      */
