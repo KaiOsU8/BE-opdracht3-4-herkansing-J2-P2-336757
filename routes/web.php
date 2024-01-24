@@ -25,6 +25,9 @@ require __DIR__.'/auth.php';
 
 Route::get('/voertuig/create/{instructeur}', [VoertuigController::class, 'create'])->name('voertuig.create');
 Route::post('/instructeur/{instructeur}/voertuig/{voertuig}/add', [InstructeurController::class, 'addVoertuig'])->name('instructeur.voertuig.add');
+Route::get('/instructeur/{id}/activate', [InstructeurController::class, 'activate'])->name('instructeur.activate');
+Route::get('/instructeur/{id}/deactivate', [InstructeurController::class, 'deactivate'])->name('instructeur.deactivate');
+Route::delete('/instructeur/{instructeurId}/removeVoertuig/{voertuigId}', [InstructeurController::class, 'removeVoertuig'])->name('instructeur.removeVoertuig');
 
 Route::resource('instructeur', InstructeurController::class);
 Route::resource('voertuig', VoertuigController::class);

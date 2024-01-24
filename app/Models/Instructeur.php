@@ -13,6 +13,12 @@ class Instructeur extends Model
 {
     use HasFactory;
 
+    const UPDATED_AT = 'DatumGewijzigd';
+    const CREATED_AT = 'DatumAangemaakt';
+
+    protected $fillable = [
+        'IsActief',
+    ];
 
     public function voertuigInstructeurs(): HasMany
     {

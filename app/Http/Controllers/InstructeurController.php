@@ -94,4 +94,23 @@ class InstructeurController extends Controller
     
         return redirect()->back();
     }
+
+    public function activate($id)
+    {
+        $instructeur = Instructeur::find($id);
+        $instructeur->update(['IsActief' => true]);
+
+        return redirect()->route('instructeur.index')->with('success', 'Instructeur is active');
+    }
+
+    public function deactivate($id)
+    {
+        $instructeur = Instructeur::find($id);
+        $instructeur->update(['IsActief' => false]);
+    
+        // Delete the related VoertuigInstructeur records
+        VoertuigInstructeur::where('InstructeurId', $id)->delete();
+    
+        return redirect()->route('instructeur.index')->with('success', 'Instructeur is niet actief');
+    }
 }

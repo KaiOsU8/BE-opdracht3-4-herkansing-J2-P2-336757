@@ -3,6 +3,11 @@
     <div class=" flex justify-center flex-col items-center">
         <h1 class="text-center text-4xl m-20">Instructeurs in dienst</h1>
         <span class="text-center mb-20 text-xl">Aantal instructeurs: {{ $count }}</span>
+        @if (session('success'))
+            <div class="alert alert-{{ session('alert-type') }}">
+                {{ session('success') }}
+            </div>
+        @endif
             <table class="text-center flex justify-center">
                 <tr class="text-xl">
                     <th class="border-solid border-2 border-sky-400">Voornaam</th>
@@ -12,6 +17,7 @@
                     <th class="border-solid border-2 border-sky-400">DatumInDienst</th>
                     <th class="border-solid border-2 border-sky-400">AantalSterren</th>
                     <th class="border-solid border-2 border-sky-400">Voertuig</th>
+                    <th class="border-solid border-2 border-sky-400">Ziekte/Verlof</th>
                 </tr>
                 @foreach ($instructeurs as $instructeur)
                 <tr>
@@ -22,6 +28,13 @@
                     <td class="border-b-2 border-x-2 border-gray-500">{{ $instructeur->DatumInDienst }}</td>
                     <td class="border-b-2 border-x-2 border-gray-500">{{ $instructeur->AantalSterren }}</td>
                     <td class="border-b-2 border-x-2 border-gray-500"><a href="{{ route('instructeur.show', ['instructeur' => $instructeur->id]) }}"><i class="fa-solid fa-car-on"></i></a></td>
+                    <td class="border-b-2 border-x-2 border-gray-500">
+                        @if($instructeur->IsActief)
+                            <a href="{{ route('instructeur.deactivate', ['id' => $instructeur->id]) }}" class="btn btn-danger"><i class="fa-solid fa-thumbs-up"></i></a>
+                        @else
+                            <a href="{{ route('instructeur.activate', ['id' => $instructeur->id]) }}" class="btn btn-success"><i class="fa-solid fa-thumbs-down"></i></a>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </table>

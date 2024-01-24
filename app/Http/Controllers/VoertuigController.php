@@ -88,8 +88,16 @@ class VoertuigController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Voertuig $voertuig)
+    public function destroy($id)
     {
-        //
+        $voertuig = Voertuig::find($id);
+    
+        // Detach the related Instructeur records in the pivot table
+        $voertuig->instructeurs()->detach();
+    
+        // Delete the Voertuig record
+        $voertuig->delete();
+    
+        return redirect()->route('instructeur.index')->with('success', 'Voertuig is verwijderd');
     }
 }

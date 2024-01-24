@@ -28,9 +28,6 @@
 
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <option value="" <?php echo e($voertuig->InstructeurId == null ? 'selected' : ''); ?>>
-                                No Instructeur
-                            </option>
                         </select>
                     </td>
                 </tr>

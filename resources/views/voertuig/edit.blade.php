@@ -18,9 +18,6 @@
                                     {{ $instructeur->Voornaam }} {{ $instructeur->Tussenvoegsel }} {{ $instructeur->Achternaam }}
                                 </option>
                             @endforeach
-                            <option value="" {{ $voertuig->InstructeurId == null ? 'selected' : '' }}>
-                                No Instructeur
-                            </option>
                         </select>
                     </td>
                 </tr>

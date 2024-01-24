@@ -23,6 +23,9 @@
                     <th class="border-solid border-2 border-sky-400">Type Voertuig</th>
                     <th class="border-solid border-2 border-sky-400">Rijbewijs Categorie</th>
                     <th class="border-solid border-2 border-sky-400">Wijzigen</th>
+                    <th class="border-solid border-2 border-sky-400">Verwijderen</th>
+                    <th class="border-solid border-2 border-sky-400">Toegewezen</th>
+                    
                 </tr>
                 @foreach($voertuigValues as $voertuig)
                     <tr>
@@ -37,6 +40,15 @@
                             <a href="{{ route('voertuig.edit', $voertuig->id) }}">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
+                        </td>
+                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
+                        <form action="{{ route('voertuig.destroy', $voertuig->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">
+                                <i class="fa-regular fa-trash"></i>
+                            </button>
+                        </form>
                         </td>
                     </tr>
                 @endforeach
