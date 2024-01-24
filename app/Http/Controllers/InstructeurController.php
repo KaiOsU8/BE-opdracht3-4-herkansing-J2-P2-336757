@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instructeur;
+use App\Models\Voertuig; // Import the Voertuig model class
 use Illuminate\Http\Request;
 
 class InstructeurController extends Controller
@@ -24,7 +25,7 @@ class InstructeurController extends Controller
      */
     public function create()
     {
-        //
+     //
     }
 
     /**
@@ -40,11 +41,22 @@ class InstructeurController extends Controller
      */
     public function show(Instructeur $instructeur)
     {
-        $voertuigen = $instructeur->voertuigen;
-
+        // Load the relationship to eager load vehicles and their types
+        $voertuigen = $instructeur->voertuigInstructeurs()->with('voertuig.typeVoertuig')->get();
+    
+        // Get all voertuig values per id
+        $voertuigValues = $voertuigen->pluck('voertuig');
+    
+        // Extract TypeVoertuig and Rijbewijscategorie from each voertuig
+        $typeVoertuigValues = $voertuigValues->pluck('typeVoertuig.TypeVoertuig');
+        $rijbewijscategorieValues = $voertuigValues->pluck('typeVoertuig.Rijbewijscategorie');
+    
         return view('instructeur.show', [
-            'instructeurs' => $instructeur,
+            'instructeur' => $instructeur,
             'voertuigen' => $voertuigen,
+            'voertuigValues' => $voertuigValues,
+            'typeVoertuigValues' => $typeVoertuigValues,
+            'rijbewijscategorieValues' => $rijbewijscategorieValues,
         ]);
     }
 
@@ -70,5 +82,12 @@ class InstructeurController extends Controller
     public function destroy(Instructeur $instructeur)
     {
         //
+    }
+
+    public function addVoertuig(Instructeur $instructeur, Voertuig $voertuig)
+    {
+        $instructeur->voertuigen()->attach($voertuig->id, ['DatumToekenning' => now()]);
+
+        return redirect()->back();
     }
 }

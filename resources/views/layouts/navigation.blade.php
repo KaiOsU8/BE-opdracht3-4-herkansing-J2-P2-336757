@@ -6,7 +6,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <a class="mt-5 text-xl" href="instructeur">{{ __('instructeurs') }}</a>
+                    <a class="mt-5 text-xl" href="{{ route('instructeur.index') }}">{{ __('instructeurs') }}</a>
                 </div>
             </div>
 

@@ -7,20 +7,32 @@ use App\Models\TypeVoertuig; // Add this import statement
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo; 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 class Voertuig extends Model
 {
     use HasFactory;
 
-    public function voertuigInstructeur(): BelongsTo
+    const UPDATED_AT = 'DatumGewijzigd';
+    const CREATED_AT = 'DatumAangemaakt';
+
+    protected $fillable = [
+        'Kenteken',
+        'Type',
+        'Bouwjaar',
+        'Brandstof',
+        'TypeVoertuigId',
+        'InstructeurId',
+    ];
+
+    public function voertuigInstructeur()
     {
-        return $this->belongsTo(VoertuigInstructeur::class);
+        return $this->hasOne(VoertuigInstructeur::class, 'VoertuigId');
     }
 
-    public function typeVoertuig(): HasMany
+    public function typeVoertuig() : BelongsTo
     {
-        return $this->hasMany(TypeVoertuig::class);
+        return $this->belongsTo(TypeVoertuig::class, 'TypeVoertuigId', 'id');
     }
 }

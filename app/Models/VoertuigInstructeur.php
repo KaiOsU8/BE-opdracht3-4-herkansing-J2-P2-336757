@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Voertuig; // Add this import statement
-use App\Models\Instructeur; // Add this import statement
+use App\Models\Voertuig; 
+use App\Models\Instructeur; 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo; 
 
 
 
@@ -14,13 +15,18 @@ class VoertuigInstructeur extends Model
 {
     use HasFactory;
 
-    public function voertuig(): HasMany
+    const UPDATED_AT = 'DatumGewijzigd';
+    const CREATED_AT = 'DatumAangemaakt';
+
+    protected $fillable = ['InstructeurId'];
+
+    public function voertuig(): BelongsTo
     {
-        return $this->hasMany(Voertuig::class);
+        return $this->belongsTo(Voertuig::class, 'VoertuigId', 'id');
     }
 
-    public function instructeur(): HasMany
+    public function instructeur(): BelongsTo
     {
-        return $this->hasMany(Instructeur::class);
+        return $this->belongsTo(Instructeur::class, 'InstructeurId', 'id');
     }
 }
