@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instructeur;
-use App\Models\Voertuig; // Import the Voertuig model class
+use Illuminate\Support\Facades\DB;
 use App\Models\VoertuigInstructeur; 
 use Illuminate\Http\Request;
 
