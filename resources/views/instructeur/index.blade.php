@@ -32,7 +32,7 @@
                         @if($instructeur->IsActief)
                             <a href="{{ route('instructeur.deactivate', ['id' => $instructeur->id]) }}" class="btn btn-danger"><i class="fa-solid fa-thumbs-up"></i></a>
                         @else
-                            <a href="{{ route('instructeur.activate', ['id' => $instructeur->id]) }}" class="btn btn-success"><i class="fa-solid fa-thumbs-down"></i></a>
+                            <a href="{{ route('instructeur.activate', ['id' => $instructeur->id]) }}" class="btn btn-success"><i class="fa-solid fa-bandage"></i></a>
                         @endif
                     </td>
                 </tr>

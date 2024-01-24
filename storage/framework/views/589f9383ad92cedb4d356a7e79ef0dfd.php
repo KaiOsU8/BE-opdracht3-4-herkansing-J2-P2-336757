@@ -42,7 +42,7 @@
                         <?php if($instructeur->IsActief): ?>
                             <a href="<?php echo e(route('instructeur.deactivate', ['id' => $instructeur->id])); ?>" class="btn btn-danger"><i class="fa-solid fa-thumbs-up"></i></a>
                         <?php else: ?>
-                            <a href="<?php echo e(route('instructeur.activate', ['id' => $instructeur->id])); ?>" class="btn btn-success"><i class="fa-solid fa-thumbs-down"></i></a>
+                            <a href="<?php echo e(route('instructeur.activate', ['id' => $instructeur->id])); ?>" class="btn btn-success"><i class="fa-solid fa-bandage"></i></a>
                         <?php endif; ?>
                     </td>
                 </tr>
