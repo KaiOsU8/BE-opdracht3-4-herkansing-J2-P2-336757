@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('instructeur_voertuig_histories', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('InstructeurId');
+            $table->unsignedBigInteger('VoertuigId');
+            $table->foreign('InstructeurId')->references('id')->on('instructeurs');
+            $table->foreign('VoertuigId')->references('id')->on('voertuigs');
         });
     }
 

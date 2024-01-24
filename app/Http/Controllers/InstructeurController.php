@@ -96,21 +96,42 @@ class InstructeurController extends Controller
     }
 
     public function activate($id)
-    {
-        $instructeur = Instructeur::find($id);
-        $instructeur->update(['IsActief' => true]);
+{
+    $instructeur = Instructeur::find($id);
+    $instructeur->update(['IsActief' => true]);
 
-        return redirect()->route('instructeur.index')->with('success', 'Instructeur is active');
+    // Restore the vehicle assignments from the history table
+    $voertuigHistories = DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->get();
+    foreach ($voertuigHistories as $voertuigHistory) {
+        VoertuigInstructeur::create([
+            'InstructeurId' => $id,
+            'VoertuigId' => $voertuigHistory->VoertuigId,
+        ]);
     }
+
+    // Delete the records from the history table
+    DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->delete();
+
+    return redirect()->route('instructeur.index')->with('success', 'Instructeur is active');
+}
 
     public function deactivate($id)
     {
         $instructeur = Instructeur::find($id);
         $instructeur->update(['IsActief' => false]);
-    
+
+        // Store the vehicle assignments in the history table
+        $voertuigen = VoertuigInstructeur::where('InstructeurId', $id)->get();
+        foreach ($voertuigen as $voertuig) {
+            DB::table('instructeur_voertuig_histories')->insert([
+                'InstructeurId' => $id,
+                'VoertuigId' => $voertuig->VoertuigId,
+            ]);
+        }
+
         // Delete the related VoertuigInstructeur records
         VoertuigInstructeur::where('InstructeurId', $id)->delete();
-    
+
         return redirect()->route('instructeur.index')->with('success', 'Instructeur is niet actief');
     }
 }
