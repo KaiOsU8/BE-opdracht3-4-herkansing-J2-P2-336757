@@ -12,6 +12,12 @@
     <div class=" flex justify-center flex-col items-center">
         <h1 class="text-center text-4xl m-20">Instructeurs in dienst</h1>
         <span class="text-center mb-20 text-xl">Aantal instructeurs: <?php echo e($count); ?></span>
+        <?php if(session('success')): ?>
+            <div class="alert alert-<?php echo e(session('alert-type')); ?>">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php endif; ?>
             <table class="text-center flex justify-center">
                 <tr class="text-xl">
                     <th class="border-solid border-2 border-sky-400">Voornaam</th>
@@ -21,6 +27,7 @@
                     <th class="border-solid border-2 border-sky-400">DatumInDienst</th>
                     <th class="border-solid border-2 border-sky-400">AantalSterren</th>
                     <th class="border-solid border-2 border-sky-400">Voertuig</th>
+                    <th class="border-solid border-2 border-sky-400">Ziekte/Verlof</th>
                 </tr>
                 <?php $__currentLoopData = $instructeurs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $instructeur): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
@@ -31,6 +38,13 @@
                     <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($instructeur->DatumInDienst); ?></td>
                     <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($instructeur->AantalSterren); ?></td>
                     <td class="border-b-2 border-x-2 border-gray-500"><a href="<?php echo e(route('instructeur.show', ['instructeur' => $instructeur->id])); ?>"><i class="fa-solid fa-car-on"></i></a></td>
+                    <td class="border-b-2 border-x-2 border-gray-500">
+                        <?php if($instructeur->IsActief): ?>
+                            <a href="<?php echo e(route('instructeur.deactivate', ['id' => $instructeur->id])); ?>" class="btn btn-danger"><i class="fa-solid fa-thumbs-up"></i></a>
+                        <?php else: ?>
+                            <a href="<?php echo e(route('instructeur.activate', ['id' => $instructeur->id])); ?>" class="btn btn-success"><i class="fa-solid fa-thumbs-down"></i></a>
+                        <?php endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>

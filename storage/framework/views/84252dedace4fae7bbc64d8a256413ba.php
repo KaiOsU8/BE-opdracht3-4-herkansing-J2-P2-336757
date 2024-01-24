@@ -6,7 +6,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <a class="mt-5 text-xl" href="instructeur"><?php echo e(__('instructeurs')); ?></a>
+                    <a class="mt-5 text-xl" href="<?php echo e(route('instructeur.index')); ?>"><?php echo e(__('instructeurs')); ?></a>
                 </div>
             </div>
 
