@@ -59,6 +59,13 @@
                             </button>
                         </form>
                         </td>
+                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
+                            <?php if($instructeur->wasVehicleReassignedDuringLeave($voertuig->VoertuigId)): ?>
+                                <span style="color: red;">&#10060;</span> <!-- Red cross -->
+                            <?php else: ?>
+                                <span style="color: green;">&#10004;</span> <!-- Green checkmark -->
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </table>

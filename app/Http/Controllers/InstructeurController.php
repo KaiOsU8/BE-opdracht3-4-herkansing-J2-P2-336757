@@ -96,24 +96,28 @@ class InstructeurController extends Controller
     }
 
     public function activate($id)
-{
-    $instructeur = Instructeur::find($id);
-    $instructeur->update(['IsActief' => true]);
-
-    // Restore the vehicle assignments from the history table
-    $voertuigHistories = DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->get();
-    foreach ($voertuigHistories as $voertuigHistory) {
-        VoertuigInstructeur::create([
-            'InstructeurId' => $id,
-            'VoertuigId' => $voertuigHistory->VoertuigId,
-        ]);
+    {
+        $instructeur = Instructeur::find($id);
+        $instructeur->update(['IsActief' => true]);
+    
+        // Restore the vehicle assignments from the history table
+        $voertuigHistories = DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->get();
+        foreach ($voertuigHistories as $voertuigHistory) {
+            // Check if the vehicle is currently assigned to another instructor
+            $currentAssignment = VoertuigInstructeur::where('VoertuigId', $voertuigHistory->VoertuigId)->first();
+            if (!$currentAssignment) {
+                VoertuigInstructeur::create([
+                    'InstructeurId' => $id,
+                    'VoertuigId' => $voertuigHistory->VoertuigId,
+                ]);
+            }
+        }
+    
+        // Delete the records from the history table
+        DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->delete();
+    
+        return redirect()->route('instructeur.index')->with('status', 'Instructeur is niet meer ziek of verlof');
     }
-
-    // Delete the records from the history table
-    DB::table('instructeur_voertuig_histories')->where('InstructeurId', $id)->delete();
-
-    return redirect()->route('instructeur.index')->with('success', 'Instructeur is active');
-}
 
     public function deactivate($id)
     {
@@ -132,6 +136,6 @@ class InstructeurController extends Controller
         // Delete the related VoertuigInstructeur records
         VoertuigInstructeur::where('InstructeurId', $id)->delete();
 
-        return redirect()->route('instructeur.index')->with('success', 'Instructeur is niet actief');
+        return redirect()->route('instructeur.index')->with('status', 'Instructeur is ziek of verlof');
     }
 }

@@ -50,6 +50,13 @@
                             </button>
                         </form>
                         </td>
+                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
+                            @if ($instructeur->wasVehicleReassignedDuringLeave($voertuig->VoertuigId))
+                                <span style="color: red;">&#10060;</span> <!-- Red cross -->
+                            @else
+                                <span style="color: green;">&#10004;</span> <!-- Green checkmark -->
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </table>

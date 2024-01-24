@@ -18,6 +18,12 @@
 
             </div>
         <?php endif; ?>
+        <?php if(session('status')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('status')); ?>
+
+            </div>
+        <?php endif; ?>
             <table class="text-center flex justify-center">
                 <tr class="text-xl">
                     <th class="border-solid border-2 border-sky-400">Voornaam</th>

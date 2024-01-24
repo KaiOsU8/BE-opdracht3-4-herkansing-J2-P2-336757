@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Models\Voertuig;
 use App\Models\VoertuigInstructeur;
+use Illuminate\Support\Facades\DB;
 
 class Instructeur extends Model
 {
@@ -28,5 +29,23 @@ class Instructeur extends Model
     public function voertuigen(): HasManyThrough
     {
         return $this->hasManyThrough(Voertuig::class, VoertuigInstructeur::class, 'InstructeurId', 'id', 'id', 'VoertuigId');
+    }
+
+    public function wasVehicleReassignedDuringLeave($voertuigId)
+    {
+        // Get the current assignment
+        $currentAssignment = $this->voertuigInstructeurs()->where('VoertuigId', $voertuigId)->first();
+    
+        if ($currentAssignment) {
+            // Check the history table
+            $historyRecord = DB::table('instructeur_voertuig_histories')
+                ->where('VoertuigId', $voertuigId)
+                ->where('InstructeurId', '!=', $this->id)
+                ->first();
+    
+            return $historyRecord ? true : false;
+        }
+    
+        return false;
     }
 }
