@@ -6,6 +6,7 @@ use App\Models\Instructeur;
 use Illuminate\Support\Facades\DB;
 use App\Models\VoertuigInstructeur; 
 use Illuminate\Http\Request;
+use App\Models\Voertuig;
 
 class InstructeurController extends Controller
 {
@@ -137,5 +138,17 @@ class InstructeurController extends Controller
         VoertuigInstructeur::where('InstructeurId', $id)->delete();
 
         return redirect()->route('instructeur.index')->with('status', 'Instructeur is ziek of verlof');
+    }
+    public function reassign(Instructeur $instructeur, Voertuig $voertuig)
+    {
+        return view('instructeur.reassign', compact('instructeur', 'voertuig'));
+    }
+
+    public function doReassign(Request $request, Instructeur $instructeur, Voertuig $voertuig)
+    {
+        // Voer hier de logica uit om het voertuig opnieuw toe te wijzen aan de instructeur
+        // ...
+
+        return redirect()->route('instructeur.show', $instructeur);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Models\Voertuig;
 use App\Models\VoertuigInstructeur;
 use Illuminate\Support\Facades\DB;
+use App\Models\InstructeurVoertuigHistories; // Import the missing class
 
 class Instructeur extends Model
 {
@@ -29,6 +30,18 @@ class Instructeur extends Model
     public function voertuigen(): HasManyThrough
     {
         return $this->hasManyThrough(Voertuig::class, VoertuigInstructeur::class, 'InstructeurId', 'id', 'id', 'VoertuigId');
+    }
+
+    public function allVoertuigen()
+    {
+        return $this->hasManyThrough(
+            Voertuig::class,
+            InstructeurVoertuigHistories::class, // Add the missing class here
+            'InstructeurId',
+            'id',
+            'id',
+            'VoertuigId'
+        );
     }
 
     public function wasVehicleReassignedDuringLeave($voertuigId)

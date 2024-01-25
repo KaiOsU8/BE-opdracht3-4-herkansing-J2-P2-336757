@@ -28,6 +28,8 @@ Route::post('/instructeur/{instructeur}/voertuig/{voertuig}/add', [InstructeurCo
 Route::get('/instructeur/{id}/activate', [InstructeurController::class, 'activate'])->name('instructeur.activate');
 Route::get('/instructeur/{id}/deactivate', [InstructeurController::class, 'deactivate'])->name('instructeur.deactivate');
 Route::delete('/instructeur/{instructeurId}/removeVoertuig/{voertuigId}', [InstructeurController::class, 'removeVoertuig'])->name('instructeur.removeVoertuig');
+Route::get('instructeur/{instructeur}/reassign/{voertuig}', [InstructeurController::class, 'reassign'])->name('instructeur.reassign');
+Route::post('instructeur/{instructeur}/reassign/{voertuig}', [InstructeurController::class, 'doReassign'])->name('instructeur.doReassign');
 
 Route::resource('instructeur', InstructeurController::class);
 Route::resource('voertuig', VoertuigController::class);
