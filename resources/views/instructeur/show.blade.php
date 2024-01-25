@@ -61,40 +61,6 @@
                         </td>   
                     </tr>
                 @endforeach
-                @foreach ($instructeur->allVoertuigen as $voertuig)
-                    <tr>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->id }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->Kenteken }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->Type }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->Bouwjaar }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->Brandstof }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->typeVoertuig->TypeVoertuig }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500">{{ $voertuig->typeVoertuig->Rijbewijscategorie }}</td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                            <a href="{{ route('voertuig.edit', $voertuig->id) }}">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                        </td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                        <form action="{{ route('voertuig.destroy', $voertuig->id) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">
-                                <i class="fa-regular fa-trash"></i>
-                            </button>
-                        </form>
-                        </td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                            @if ($instructeur->wasVehicleReassignedDuringLeave($voertuig->id))
-                                <a href="{{ route('instructeur.reassign', [$instructeur, $voertuig]) }}">
-                                    <span style="color: red;">&#10060;</span> <!-- Red cross -->
-                                </a>
-                            @else
-                                <span style="color: green;">&#10004;</span> <!-- Green checkmark -->
-                            @endif
-                        </td>   
-                    </tr>
-                @endforeach
             </table>
         @else
             <p>Deze instructeur heeft geen toegewezen voertuigen.</p>

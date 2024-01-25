@@ -47,8 +47,8 @@ class InstructeurController extends Controller
         $voertuigen = $instructeur->voertuigInstructeurs()->with('voertuig.typeVoertuig')->get();
     
         // Get all voertuig values per id
-        $voertuigValues = $voertuigen->pluck('voertuig');
-    
+        $voertuigValues = $voertuigen->pluck('voertuig')->unique('id');
+
         // Extract TypeVoertuig and Rijbewijscategorie from each voertuig
         $typeVoertuigValues = $voertuigValues->pluck('typeVoertuig.TypeVoertuig');
         $rijbewijscategorieValues = $voertuigValues->pluck('typeVoertuig.Rijbewijscategorie');
@@ -83,7 +83,16 @@ class InstructeurController extends Controller
      */
     public function destroy(Instructeur $instructeur)
     {
-        //
+        // Remove the vehicle assignments
+        foreach ($instructeur->voertuigInstructeurs as $voertuig) {
+            $voertuig->InstructeurId = null;
+            $voertuig->save();
+        }
+    
+        // Delete the instructor
+        $instructeur->delete();
+    
+        return redirect()->route('instructeur.index')->with('success', 'Instructeur successfully deleted.');
     }
 
     public function addVoertuig(Request $request, $instructeurId, $voertuigId)

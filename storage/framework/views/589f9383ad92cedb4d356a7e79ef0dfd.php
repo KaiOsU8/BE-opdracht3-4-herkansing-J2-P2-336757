@@ -34,6 +34,7 @@
                     <th class="border-solid border-2 border-sky-400">AantalSterren</th>
                     <th class="border-solid border-2 border-sky-400">Voertuig</th>
                     <th class="border-solid border-2 border-sky-400">Ziekte/Verlof</th>
+                    <th class="border-solid border-2 border-sky-400">Verwijderen</th>
                 </tr>
                 <?php $__currentLoopData = $instructeurs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $instructeur): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
@@ -50,6 +51,15 @@
                         <?php else: ?>
                             <a href="<?php echo e(route('instructeur.activate', ['id' => $instructeur->id])); ?>" class="btn btn-success"><i class="fa-solid fa-bandage"></i></a>
                         <?php endif; ?>
+                    </td>
+                    <td class="border-b-2 border-x-2 border-gray-500">
+                        <form action="<?php echo e(route('instructeur.destroy', $instructeur)); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <?php echo method_field('DELETE'); ?>
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -70,40 +70,6 @@
                         </td>   
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php $__currentLoopData = $instructeur->allVoertuigen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $voertuig): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->id); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->Kenteken); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->Type); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->Bouwjaar); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->Brandstof); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->typeVoertuig->TypeVoertuig); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500"><?php echo e($voertuig->typeVoertuig->Rijbewijscategorie); ?></td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                            <a href="<?php echo e(route('voertuig.edit', $voertuig->id)); ?>">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                        </td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                        <form action="<?php echo e(route('voertuig.destroy', $voertuig->id)); ?>" method="POST" class="inline">
-                            <?php echo csrf_field(); ?>
-                            <?php echo method_field('DELETE'); ?>
-                            <button type="submit">
-                                <i class="fa-regular fa-trash"></i>
-                            </button>
-                        </form>
-                        </td>
-                        <td class="border-b-2 border-x-2 border-gray-500 text-center">
-                            <?php if($instructeur->wasVehicleReassignedDuringLeave($voertuig->id)): ?>
-                                <a href="<?php echo e(route('instructeur.reassign', [$instructeur, $voertuig])); ?>">
-                                    <span style="color: red;">&#10060;</span> <!-- Red cross -->
-                                </a>
-                            <?php else: ?>
-                                <span style="color: green;">&#10004;</span> <!-- Green checkmark -->
-                            <?php endif; ?>
-                        </td>   
-                    </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </table>
         <?php else: ?>
             <p>Deze instructeur heeft geen toegewezen voertuigen.</p>

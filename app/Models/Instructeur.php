@@ -22,9 +22,9 @@ class Instructeur extends Model
         'IsActief',
     ];
 
-    public function voertuigInstructeurs(): HasMany
+    public function voertuigInstructeurs()
     {
-        return $this->hasMany(VoertuigInstructeur::class, 'InstructeurId', 'id');
+        return $this->hasMany(VoertuigInstructeur::class, 'InstructeurId')->distinct('VoertuigId');
     }
 
     public function voertuigen(): HasManyThrough

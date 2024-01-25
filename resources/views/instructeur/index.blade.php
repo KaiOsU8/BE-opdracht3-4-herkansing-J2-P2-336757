@@ -23,6 +23,7 @@
                     <th class="border-solid border-2 border-sky-400">AantalSterren</th>
                     <th class="border-solid border-2 border-sky-400">Voertuig</th>
                     <th class="border-solid border-2 border-sky-400">Ziekte/Verlof</th>
+                    <th class="border-solid border-2 border-sky-400">Verwijderen</th>
                 </tr>
                 @foreach ($instructeurs as $instructeur)
                 <tr>
@@ -39,6 +40,15 @@
                         @else
                             <a href="{{ route('instructeur.activate', ['id' => $instructeur->id]) }}" class="btn btn-success"><i class="fa-solid fa-bandage"></i></a>
                         @endif
+                    </td>
+                    <td class="border-b-2 border-x-2 border-gray-500">
+                        <form action="{{ route('instructeur.destroy', $instructeur) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
