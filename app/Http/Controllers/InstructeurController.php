@@ -92,7 +92,7 @@ class InstructeurController extends Controller
         // Delete the instructor
         $instructeur->delete();
     
-        return redirect()->route('instructeur.index')->with('success', 'Instructeur successfully deleted.');
+        return redirect()->route('instructeur.index')->with('success', 'Instructeur is definitief verwijdert en al zijn eerder toegewezen voertuigen zijn vrijgegeven');
     }
 
     public function addVoertuig(Request $request, $instructeurId, $voertuigId)
